@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.com.xuxiaowei.boot.next</groupId>
-    <artifactId>spring-boot-starter-dingtalk</artifactId>
+    <artifactId>spring-boot-starter-gitlab</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
     <name>spring-boot-starter-gitlab</name>
