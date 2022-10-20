@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2GitLabConfigurerUtils;
 import org.springframework.security.oauth2.server.authorization.context.AuthorizationServerContextHolder;
 import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcUserInfoAuthenticationProvider;
+import org.springframework.security.oauth2.server.authorization.properties.GitLabProperties;
 import org.springframework.security.oauth2.server.authorization.token.DefaultOAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
@@ -58,13 +59,13 @@ public class OAuth2GitLabAuthenticationProvider implements AuthenticationProvide
 	 *
 	 *
 	 */
-	public static final String ACCESS_TOKEN_URL = "https://gitlab.com/oauth/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={redirect_uri}";
+	public static final String ACCESS_TOKEN_URL = "/oauth/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={redirect_uri}";
 
 	/**
 	 *
 	 *
 	 */
-	public static final String USERINFO_URL = "https://gitlab.com/api/v4/user?access_token={access_token}";
+	public static final String USERINFO_URL = "/api/v4/user?access_token={access_token}";
 
 	private final HttpSecurity builder;
 
@@ -128,8 +129,11 @@ public class OAuth2GitLabAuthenticationProvider implements AuthenticationProvide
 			throw new OAuth2AuthenticationException(error);
 		}
 
+		GitLabProperties.GitLab gitLab = gitLabService.getGitLabByAppid(appid);
+		String domain = gitLab.getDomain();
+
 		GitLabTokenResponse gitLabTokenResponse = gitLabService.getAccessTokenResponse(appid, code, state, binding,
-				ACCESS_TOKEN_URL, USERINFO_URL, remoteAddress, sessionId);
+				domain + ACCESS_TOKEN_URL, domain + USERINFO_URL, remoteAddress, sessionId);
 
 		GitLabTokenResponse.UserInfo userInfo = gitLabTokenResponse.getUserInfo();
 

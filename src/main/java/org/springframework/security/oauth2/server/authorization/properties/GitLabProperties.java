@@ -37,6 +37,13 @@ public class GitLabProperties {
 	public static class GitLab {
 
 		/**
+		 * 域名，默认值：https://gitlab.com
+		 * <p>
+		 * 可推展为自建 GitLab、<a href="https://jihulab.com">极狐</a> 等
+		 */
+		private String domain = "https://gitlab.com";
+
+		/**
 		 * AppID
 		 */
 		private String appid;

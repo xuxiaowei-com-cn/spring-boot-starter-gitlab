@@ -32,7 +32,7 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 
 	public static final String PREFIX_URL = "/gitlab/authorize";
 
-	public static final String AUTHORIZE_URL = "https://gitlab.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s";
+	public static final String AUTHORIZE_URL = "/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s";
 
 	private GitLabProperties gitLabProperties;
 
@@ -65,6 +65,9 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 
 			String appid = requestUri.replace(prefixUrl + "/", "");
 
+			GitLabProperties.GitLab gitLab = gitLabService.getGitLabByAppid(appid);
+			String domain = gitLab.getDomain();
+
 			String redirectUri = gitLabService.getRedirectUriByAppid(appid);
 
 			String binding = request.getParameter(OAuth2GitLabParameterNames.BINDING);
@@ -74,7 +77,7 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 			gitLabService.storeBinding(request, response, appid, state, binding);
 			gitLabService.storeUsers(request, response, appid, state, binding);
 
-			String url = String.format(AUTHORIZE_URL, appid, redirectUri, scope, state);
+			String url = String.format(domain + AUTHORIZE_URL, appid, redirectUri, scope, state);
 
 			log.info("redirectUrl：{}", url);
 
