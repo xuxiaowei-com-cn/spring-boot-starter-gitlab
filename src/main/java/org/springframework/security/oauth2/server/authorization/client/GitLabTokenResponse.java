@@ -43,6 +43,12 @@ public class GitLabTokenResponse implements Serializable {
 	@JsonProperty("access_token")
 	private String accessToken;
 
+	@JsonProperty("token_type")
+	private String tokenType;
+
+	@JsonProperty("created_at")
+	private Long createdAt;
+
 	/**
 	 * access_token接口调用凭证超时时间，单位（秒）
 	 */

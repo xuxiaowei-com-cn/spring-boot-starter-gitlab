@@ -255,11 +255,15 @@ public class InMemoryGitLabService implements GitLabService {
 		uriVariables.put(OAuth2ParameterNames.CODE, code);
 		uriVariables.put(OAuth2ParameterNames.REDIRECT_URI, redirectUri);
 
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+
 		RestTemplate restTemplate = new RestTemplate();
 		List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
 		messageConverters.set(1, new StringHttpMessageConverter(StandardCharsets.UTF_8));
 
-		String forObject = restTemplate.getForObject(accessTokenUrl, String.class, uriVariables);
+		String forObject = restTemplate.postForObject(accessTokenUrl, httpEntity, String.class, uriVariables);
 
 		GitLabTokenResponse gitLabTokenResponse;
 		ObjectMapper objectMapper = new ObjectMapper();
