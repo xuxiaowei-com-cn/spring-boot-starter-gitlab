@@ -9,9 +9,9 @@ package org.springframework.security.oauth2.server.authorization.client;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -226,6 +226,7 @@ public class InMemoryGitLabService implements GitLabService {
 
 	/**
 	 * 根据 AppID、code、accessTokenUrl 获取Token
+	 * @param domain 域名
 	 * @param appid AppID
 	 * @param code 授权码
 	 * @param state 状态码
@@ -241,8 +242,8 @@ public class InMemoryGitLabService implements GitLabService {
 	 * 拦截处理此异常
 	 */
 	@Override
-	public GitLabTokenResponse getAccessTokenResponse(String appid, String code, String state, String binding,
-			String accessTokenUrl, String userinfoUrl, String remoteAddress, String sessionId)
+	public GitLabTokenResponse getAccessTokenResponse(String domain, String appid, String code, String state,
+			String binding, String accessTokenUrl, String userinfoUrl, String remoteAddress, String sessionId)
 			throws OAuth2AuthenticationException {
 		Map<String, String> uriVariables = new HashMap<>(8);
 		uriVariables.put(OAuth2ParameterNames.CLIENT_ID, appid);

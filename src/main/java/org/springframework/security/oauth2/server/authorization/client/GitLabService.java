@@ -142,6 +142,7 @@ public interface GitLabService {
 
 	/**
 	 * 根据 AppID、code、accessTokenUrl 获取Token
+	 * @param domain 域名
 	 * @param appid AppID
 	 * @param code 授权码
 	 * @param state 状态码
@@ -156,7 +157,7 @@ public interface GitLabService {
 	 * {@link OAuth2TokenEndpointConfigurer#errorResponseHandler(AuthenticationFailureHandler)}
 	 * 拦截处理此异常
 	 */
-	GitLabTokenResponse getAccessTokenResponse(String appid, String code, String state, String binding,
+	GitLabTokenResponse getAccessTokenResponse(String domain, String appid, String code, String state, String binding,
 			String accessTokenUrl, String userinfoUrl, String remoteAddress, String sessionId)
 			throws OAuth2AuthenticationException;
 

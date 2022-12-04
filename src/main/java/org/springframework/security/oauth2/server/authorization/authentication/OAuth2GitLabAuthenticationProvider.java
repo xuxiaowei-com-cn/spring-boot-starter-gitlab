@@ -152,8 +152,8 @@ public class OAuth2GitLabAuthenticationProvider implements AuthenticationProvide
 		GitLabProperties.GitLab gitLab = gitLabService.getGitLabByAppid(appid);
 		String domain = gitLab.getDomain();
 
-		GitLabTokenResponse gitLabTokenResponse = gitLabService.getAccessTokenResponse(appid, code, state, binding,
-				domain + ACCESS_TOKEN_URL, domain + USERINFO_URL, remoteAddress, sessionId);
+		GitLabTokenResponse gitLabTokenResponse = gitLabService.getAccessTokenResponse(domain, appid, code, state,
+				binding, domain + ACCESS_TOKEN_URL, domain + USERINFO_URL, remoteAddress, sessionId);
 
 		GitLabTokenResponse.UserInfo userInfo = gitLabTokenResponse.getUserInfo();
 
