@@ -121,17 +121,23 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 
 			String binding = request.getParameter(OAuth2GitLabParameterNames.BINDING);
 			String scope = request.getParameter(OAuth2ParameterNames.SCOPE);
-			List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
-			List<String> legalList = Arrays.asList(API, READ_USER, READ_REPOSITORY, WRITE_REPOSITORY, READ_REGISTRY,
-					WRITE_REGISTRY, SUDO, OPENID, PROFILE, EMAIL);
-			Set<String> scopeResultSet = new HashSet<>();
-			scopeResultSet.add(READ_USER);
-			for (String sc : scopeList) {
-				if (legalList.contains(sc)) {
-					scopeResultSet.add(sc);
-				}
+			String scopeResult;
+			if (scope == null) {
+				scopeResult = READ_USER;
 			}
-			String scopeResult = Joiner.on(" ").join(scopeResultSet);
+			else {
+				List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
+				List<String> legalList = Arrays.asList(API, READ_USER, READ_REPOSITORY, WRITE_REPOSITORY, READ_REGISTRY,
+						WRITE_REGISTRY, SUDO, OPENID, PROFILE, EMAIL);
+				Set<String> scopeResultSet = new HashSet<>();
+				scopeResultSet.add(READ_USER);
+				for (String sc : scopeList) {
+					if (legalList.contains(sc)) {
+						scopeResultSet.add(sc);
+					}
+				}
+				scopeResult = Joiner.on(" ").join(scopeResultSet);
+			}
 
 			String state = gitLabService.stateGenerate(request, response, appid);
 			gitLabService.storeBinding(request, response, appid, state, binding);
