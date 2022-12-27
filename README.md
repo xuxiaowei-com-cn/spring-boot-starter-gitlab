@@ -177,6 +177,9 @@ git remote add gitlink https://gitlink.org.cn/xuxiaowei-com-cn/spring-boot-start
 ## 参考文档
 
 - [OAuth 2.0身份提供程序API](https://docs.gitlab.com/ee/api/oauth2.html)
+    - [OAuth 2.0 provider](https://docs.gitlab.com/ee/integration/oauth_provider.html)
+- [极狐GitLab中文文档](https://docs.gitlab.cn/jh/api/oauth2.html)
+    - [OAuth 2.0 provider](https://docs.gitlab.cn/jh/integration/oauth_provider.html)
 
 ## 鸣谢
 
