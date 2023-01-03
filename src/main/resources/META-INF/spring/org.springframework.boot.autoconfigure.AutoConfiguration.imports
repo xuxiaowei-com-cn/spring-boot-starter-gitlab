@@ -1,0 +1,4 @@
+org.springframework.security.oauth2.server.authorization.http.GitLabAuthorizeHttpFilter
+org.springframework.security.oauth2.server.authorization.http.GitLabCodeHttpFilter
+org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2GitLabConfiguration
+org.springframework.security.oauth2.server.authorization.properties.GitLabProperties
