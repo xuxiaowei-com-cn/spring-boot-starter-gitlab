@@ -63,24 +63,59 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 
 	public static final String AUTHORIZE_URL = "/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s";
 
+	/**
+	 * 授予对 API 的完全读/写访问权，包括所有群组和项目、容器镜像库和软件包库。
+	 */
 	public static final String API = "api";
 
+	/**
+	 * 授予对 API 的读访问权，包括所有群组和项目、容器镜像库和软件包库。
+	 */
+	public static final String READ_API = "read_api";
+
+	/**
+	 * 通过 /user API端点授予对通过身份验证的用户概要的只读访问权，该端点包括用户名、公共电子邮件和全名。还授予对 /users 下的只读 API 端点的访问权。
+	 */
 	public static final String READ_USER = "read_user";
 
+	/**
+	 * 使用 Git-over-HTTP 或 Repository Files API 授予对私有项目仓库的只读访问权。
+	 */
 	public static final String READ_REPOSITORY = "read_repository";
 
+	/**
+	 * 使用 Git-over-HTTP (不使用 API)授予对私有项目上的仓库的读写访问权。
+	 */
 	public static final String WRITE_REPOSITORY = "write_repository";
 
+	/**
+	 * 授予对私有项目上的容器镜像库镜像的只读访问权。
+	 */
 	public static final String READ_REGISTRY = "read_registry";
 
+	/**
+	 * 授予对私有项目上的容器镜像库镜像的写访问权。
+	 */
 	public static final String WRITE_REGISTRY = "write_registry";
 
+	/**
+	 * 当以管理员用户身份进行身份验证时，授予作为系统中任何用户执行 API 操作的权限。
+	 */
 	public static final String SUDO = "sudo";
 
+	/**
+	 * 授予使用 OpenID Connect 与 GitLab 进行身份验证的权限。还提供对用户配置文件和组成员关系的只读访问权限。
+	 */
 	public static final String OPENID = "openid";
 
+	/**
+	 * 使用 OpenID Connect 授予对用户配置文件数据的只读访问权。
+	 */
 	public static final String PROFILE = "profile";
 
+	/**
+	 * 使用 OpenID Connect 授予对用户主电子邮件地址的只读访问权。
+	 */
 	public static final String EMAIL = "email";
 
 	private GitLabProperties gitLabProperties;
@@ -127,8 +162,8 @@ public class GitLabAuthorizeHttpFilter extends HttpFilter {
 			}
 			else {
 				List<String> scopeList = Splitter.on(" ").trimResults().splitToList(scope);
-				List<String> legalList = Arrays.asList(API, READ_USER, READ_REPOSITORY, WRITE_REPOSITORY, READ_REGISTRY,
-						WRITE_REGISTRY, SUDO, OPENID, PROFILE, EMAIL);
+				List<String> legalList = Arrays.asList(API, READ_API, READ_USER, READ_REPOSITORY, WRITE_REPOSITORY,
+						READ_REGISTRY, WRITE_REGISTRY, SUDO, OPENID, PROFILE, EMAIL);
 				Set<String> scopeResultSet = new HashSet<>();
 				scopeResultSet.add(READ_USER);
 				for (String sc : scopeList) {
