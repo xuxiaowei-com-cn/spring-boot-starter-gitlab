@@ -79,7 +79,7 @@ public class OAuth2GitLabAuthenticationProvider implements AuthenticationProvide
 	 *
 	 *
 	 */
-	public static final String ACCESS_TOKEN_URL = "/oauth/token?client_id={client_id}&client_secret={client_secret}&code={code}&grant_type=authorization_code&redirect_uri={redirect_uri}";
+	public static final String ACCESS_TOKEN_URL = "/oauth/token?code={code}&grant_type=authorization_code&redirect_uri={redirect_uri}";
 
 	/**
 	 *
