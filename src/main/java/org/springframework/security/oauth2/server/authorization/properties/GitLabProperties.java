@@ -81,7 +81,7 @@ public class GitLabProperties {
 		/**
 		 * 域名，默认值：https://gitlab.com
 		 * <p>
-		 * 可推展为自建 GitLab、<a href="https://jihulab.com">极狐</a> 等
+		 * 可拓展为自建 GitLab 等
 		 */
 		private String domain = "https://gitlab.com";
 
